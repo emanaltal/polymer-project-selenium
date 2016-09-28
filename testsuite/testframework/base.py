@@ -10,6 +10,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
+
+
 class BaseTest(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
@@ -40,15 +43,6 @@ class BaseTest(unittest.TestCase):
     def lg(self, msg):
         self._logger.info(msg)
 
-    def element_is_enabled(self, element):
-        return self.driver.find_element_by_xpath(self.elements[element]).is_enabled()
-
-    def element_is_displayed(self, element):
-        return self.driver.find_element_by_xpath(self.elements[element]).is_displayed()
-
-    def element_is_readonly(self, element):
-        return self.driver.find_element_by_xpath(self.elements[element]).get_attribute("readonly")
-
     def wait_until_element_located(self, name):
         self.wait.until(EC.visibility_of_element_located((By.XPATH, name)))
 
@@ -65,24 +59,28 @@ class BaseTest(unittest.TestCase):
         element = self.elements[element]
         self.click_element(element)
 
-    def click_element(self, element):
+    def click_link(self, link):
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        self.click_element(link)
+
+    def click_element(self, element):       
         self.wait_until_element_located(element)
-        self.wait_unti_element_clickable(element)
+        self.wait_unti_element_clickable(element)    
         self.driver.find_element_by_xpath(element).click()
-        time.sleep(1)
 
-    def get_text(self, element):
+    def get_text(self, element, text):
         element = self.elements[element]
-        return self.get_element_text(element)
+        self.wait_until_element_located_and_has_text(element, text)
 
-    def get_element_text(self, element):
-        self.wait_until_element_located(element)
-        return self.driver.find_element_by_xpath(element).text
-
-    def get_value(self, element):
-        element = self.elements[element]
-        self.wait_until_element_located(element)
-        return self.driver.find_element_by_xpath(element).get_attribute("value")
+    def wait_until_element_located_and_has_text(self, xpath, text):
+        for _ in range(10):
+            try:
+                self.wait.until(EC.text_to_be_present_in_element((By.XPATH, xpath), text))
+                return True
+            except (TimeoutException, StaleElementReferenceException):
+                time.sleep(1)
+        else:
+            self.assertEqual(self.driver.find_element_by_xpath(xpath).text, text)
 
     def set_text(self, element, value):
         element = self.elements[element]

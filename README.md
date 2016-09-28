@@ -1,6 +1,15 @@
 # polymer-project-selenium
 Write a Selenium Automated test suite for the following site: https://shop.polymer-project.org/
 
+# Files and Folders:
+--------------------
+config.cfg: The testsuite configuration file.
+requirements.txt: The testsuite python packages requirements file.
+testsuite: The testsuite folder holding testcases files and testframework.
+testsuite/test_task: The testcase file for the task.
+testframework: The testframework folder for base testcase classes and utilities.
+testframework/base.py: The testframework base file for testcase classes and utilities.
+logs: The testsuite logging folder will be created during operations containing the log file.
 
 # Requirements:
 1- linux machine with gui (Ubuntu Desktop) and browser (Firefox)
@@ -23,11 +32,11 @@ python$> pip install -r requirements.txt
 Run the tests:
 --------------
 ```
-python$> nosetests -xv testsuite --tc-file=config.ini 2>testresults.log
+python$> nosetests -v testsuite --tc-file=config.ini
 ```
 
 See test results:
 --------------
 ```
-python$> cat testresults.log
+python$> cat logs/portal_testsuite.log
 ```
