@@ -3,13 +3,13 @@ Write a Selenium Automated test suite for the following site: https://shop.polym
 
 # Files and Folders:
 --------------------
-config.cfg: The testsuite configuration file.
-requirements.txt: The testsuite python packages requirements file.
-testsuite: The testsuite folder holding testcases files and testframework.
-testsuite/test_task: The testcase file for the task.
-testframework: The testframework folder for base testcase classes and utilities.
-testframework/base.py: The testframework base file for testcase classes and utilities.
-logs: The testsuite logging folder will be created during operations containing the log file.
+* config.cfg: The testsuite configuration file.
+* requirements.txt: The testsuite python packages requirements file.
+* testsuite: The testsuite folder holding testcases files and testframework.
+* testsuite/test_task: The testcase file for the task.
+* testframework: The testframework folder for base testcase classes and utilities.
+* testframework/base.py: The testframework base file for testcase classes and utilities.
+* logs: The testsuite logging folder will be created during operations containing the log file.
 
 # Requirements:
 1- linux machine with gui (Ubuntu Desktop) and browser (Firefox)
