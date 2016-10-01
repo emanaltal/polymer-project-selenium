@@ -1,6 +1,14 @@
 # polymer-project-selenium
 Write a Selenium Automated test suite for the following site: https://shop.polymer-project.org/
 
+# Task Requirements: 
+Test Case should include:
+* Clicking on the home page the “Men’s outwear” and verify the list of items
+* Clicking on the home page the “Ladies outwear” and verify the list of items
+* Add Ladies Colorblock Wind Jacket (From Ladies Outwear) & Inbox - Subtle Actions T-shirt (From Men’s
+T-Shirt) to the Cart
+* Checkout The cart by filling in with some fake details and Place order?
+
 # Files and Folders:
 --------------------
 * config.cfg: The testsuite configuration file.
